@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mindtrack
+    env: python
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "gunicorn app_fixed:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10

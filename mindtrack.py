@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""MINDTRACK - Fixed for Local Dataset
-
-Fixed version to work with local dataset structure
-"""
 
 import os
 import numpy as np
@@ -111,8 +106,6 @@ def extract_features(image):
         'alignment': extract_alignment(image)
     }
 
-    # More feature extraction can be added here
-
     # Create a fixed-length feature vector (15 features to match the model)
     feature_vector = [
         features['stroke_consistency'],
@@ -122,7 +115,7 @@ def extract_features(image):
         0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     ]
 
-    return feature_vector[:15]  # Return first 15 features to match model expectation
+    return feature_vector[:15]  
 
 def normalize_features(features):
     """Normalize features using z-score normalization"""
