@@ -11,19 +11,32 @@ from datetime import datetime
 import hashlib
 import json
 
-# Initialize Flask app
-app = Flask(__name__, static_folder="frontend/dist", static_url_path="")
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000","http://localhost:5173", "http://127.0.0.1:5173"])
+app = Flask(__name__, static_folder="frontend/dist", static_url_path="/")
+
+# Enable CORS (for local + production)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 app.secret_key = 'your-secret-key-here'
 
-# Configuration
+
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Create directories
+# Create necessary directories if they don't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs('static/css', exist_ok=True)
 os.makedirs('data', exist_ok=True)
+
+
+@app.route('/')
+def serve():
+    """Serve React build index.html"""
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.errorhandler(404)
+def not_found(e):
+    """Redirect unknown routes to React app"""
+    return send_from_directory(app.static_folder, 'index.html')
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
