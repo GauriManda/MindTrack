@@ -217,12 +217,12 @@ feature_scaler = None
 
 try:
     possible_paths = [
-        "dysgraphia_model.keras",
-        "./dysgraphia_model.keras", 
-        "dysgraphia_model.h5",
-        "./dysgraphia_model.h5"
-    ]
-    
+    "dysgraphia_model.keras",
+    "./dysgraphia_model.keras",
+    "/opt/render/project/src/dysgraphia_model.keras",
+    "/opt/render/project/src/dysgraphia_model.h5"
+]
+
     model_loaded = False
     for model_path in possible_paths:
         if os.path.exists(model_path):
