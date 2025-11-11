@@ -6,3 +6,5 @@ keras
 numpy
 pandas
 opencv-python
+scipy
+scikit-learn
